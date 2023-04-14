@@ -1,0 +1,1146 @@
+// @mixin
+@mixin desktop {
+    @media(min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin fz($size) {
+    font-size: ($size / 16) + rem;
+}
+
+// 基本レイアウト
+html {
+    font-size: 100%;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #FFFFFF;
+    color: #333;
+}
+
+img {
+    max-width: 100%;
+}
+
+li {
+    list-style: none;
+}
+
+// 共通レイアウト
+.wrapper {
+    max-width: 1022px;
+    margin: 0 auto;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+// コンタクトボタン
+.contact_btn {
+    display: inline-block;
+    font-weight: bold;
+    color: #FFFFFF;
+    padding: 10px 36px;
+    background: linear-gradient(to right, #FA41CC, #6020B0);
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(#00000029, .2);
+    transition: .25s;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    transition: transform ease .3s;
+
+}
+
+.contact_btn::before,
+.contact_btn::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    top: 0;
+    z-index: -1;
+    transition: transform ease .3s;
+
+}
+
+.contact_btn::before {
+    right: -26px;
+    border-right: 60px solid transparent;
+    border-bottom: 60px solid #333;
+    transform: translateX(-100%);
+
+}
+
+.contact_btn::after {
+    left: -8px;
+    border-left: 60px solid transparent;
+    border-top: 60px solid #333;
+    transform: translateX(100%);
+
+}
+
+.contact_btn:focus::before,
+.contact_btn:hover::before {
+    transform: translateX(-42%);
+
+}
+
+.contact_btn:focus::after,
+.contact_btn:hover::after {
+    transform: translateX(42%);
+
+}
+
+// リンクアンダーライン
+.gnav .underline li a,
+.footer .underline {
+    position: relative;
+    transition: .3s;
+}
+
+.gnav .underline li a::after,
+.footer .underline::after {
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    content: '';
+    width: 0;
+    height: 2px;
+    background-color: #333;
+    transition: .3s;
+}
+
+.gnav .underline li a:hover::after,
+.footer .underline:hover::after {
+    width: 100%;
+}
+
+
+
+
+
+// レベル2見出し
+.heading-lv2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+    line-height: 1.5;
+    text-transform: uppercase;
+
+    @include desktop {
+        margin-bottom: 40px;
+    }
+}
+
+.heading-lv2_main {
+    @include fz(24);
+    font-weight: bold;
+
+    @include desktop {
+        @include fz(32);
+    }
+}
+
+.heading-lv2_sub {
+    @include fz(16);
+    font-weight: bold;
+    margin-top: 10px;
+    letter-spacing: -0.03em;
+    color: #3BA6C9;
+}
+
+.heading-white {
+    color: #FFFFFF;
+}
+
+// セクション間隔
+.section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.section-bg1 {
+    background: #EEFBFB;
+}
+
+.section-bg2 {
+    background: linear-gradient(to right, #05A5FA, #05A5FA 50%, #63FBD7 92%, #67FFD6 100%);
+}
+
+// header
+
+.header {
+    box-shadow: 0 3px 6px rgba(#00000029, .2);
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    height: 70px;
+    background: #fff;
+
+    @include desktop {
+        height: 94px;
+    }
+
+    &_inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+
+        .header_logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-left: 20px;
+            line-height: 94px;
+
+            .header_ttl {
+                font-weight: bold;
+                @include fz(18);
+
+                @include desktop {
+                    font-weight: bold;
+                    @include fz(24);
+                }
+            }
+
+        }
+    }
+}
+
+.header_btn {
+    display: none;
+
+    @include desktop {
+        display: inline-block;
+        font-weight: bold;
+        color: #FFFFFF;
+        padding: 10px 36px;
+        background: linear-gradient(to right, #FA41CC, #6020B0);
+        border-radius: 10px;
+        box-shadow: 0 3px 6px rgba(#00000029, .2);
+    }
+
+}
+
+// グローバルナビゲーション
+.gnav {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    background: #fff;
+    opacity: 0.9;
+    transition: 0.5s;
+
+    &.active {
+        left: 0;
+    }
+
+    @include desktop {
+        display: block;
+        position: static;
+        width: 38%;
+    }
+
+    &>ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 32px;
+        height: 100%;
+        font-weight: bold;
+        @include fz(26);
+
+        @include desktop {
+            display: flex;
+            flex-direction: row;
+            gap: 46px;
+            font-weight: bold;
+            @include fz(16);
+            background: #fff;
+
+        }
+    }
+}
+
+// ハンバーガーメニュー
+.hamburger {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    @include desktop {
+        display: none;
+    }
+
+    &_line,
+    &_line::before,
+    &_line::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 40px;
+        height: 3px;
+        border-radius: 3px;
+        background-color: #000;
+        transition: .3s;
+    }
+
+    &_line::before {
+        bottom: 12px;
+    }
+
+    &_line::after {
+        top: 12px;
+    }
+
+    &.active &_line {
+        background: transparent;
+    }
+
+    &.active &_line::before {
+        transform: rotate(-135deg);
+        bottom: 0;
+    }
+
+    &.active &_line::after {
+        transform: rotate(135deg);
+        top: 0;
+
+    }
+
+}
+
+
+// mv(メインビジュアル)
+.bg {
+    background-image: url(../img/cercle.svg);
+    background-position: top -80px left 50%;
+    background-repeat: no-repeat;
+
+    @include desktop {
+        background-position: top -80px right -100px;
+    }
+}
+
+.mv {
+
+    &_inner {
+        padding-top: 60px;
+
+        @include desktop {
+            justify-content: space-between;
+            align-items: center;
+            display: flex;
+            height: auto;
+            padding-top: 190px;
+            padding-bottom: 130px;
+        }
+
+        .mv_img {
+            margin-top: 10px;
+            width: 405px;
+            max-width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+
+            @include desktop {
+                margin-top: 0px;
+                width: 50%;
+                margin-right: 0;
+                margin-left: 0;
+
+            }
+
+            img {
+                @include desktop {}
+            }
+
+        }
+    }
+
+    &_body {
+        text-align: center;
+        padding-top: 60px;
+
+        @include desktop {
+            text-align: left;
+            width: 48%;
+            padding: 0;
+
+        }
+
+        .mv_ttl {
+            @include fz(24);
+            font-weight: bold;
+            line-height: 1.3;
+
+
+            @include desktop {
+                @include fz(32);
+            }
+        }
+
+        .mv_txt {
+            @include fz(14);
+            padding-top: 24px;
+            line-height: 1.2;
+            font-weight: bold;
+
+
+            @include desktop {
+                @include fz(16);
+                padding-top: 45px;
+
+            }
+        }
+    }
+}
+
+.mv_btn {
+    margin-top: 24px;
+
+    @include desktop {
+        margin-top: 45px;
+    }
+}
+
+
+// footer
+.footer {
+    background: #F8F8F8;
+}
+
+.footer_inner {
+    padding-top: 46px;
+    padding-bottom: 30px;
+    padding-right: 5%;
+    padding-left: 5%;
+    text-align: center;
+
+    @include desktop {
+        padding-bottom: 52px;
+
+    }
+}
+
+.footer_ttl {
+    font-weight: bold;
+    @include fz(20);
+
+    @include desktop {
+        @include fz(24);
+    }
+
+}
+
+.footer_contents {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 24px;
+    font-weight: bold;
+    @include fz(14);
+
+    @include desktop {
+        @include fz(16);
+        gap: 29px;
+
+    }
+}
+
+.copyright {
+    @include fz(14);
+    margin-bottom: 49px;
+    text-align: center;
+}
+
+// features
+
+.features_heading {
+    @include fz(26);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 50px;
+
+
+    @include desktop {
+        @include fz(28);
+        margin-bottom: 50px;
+        margin-top: 100px;
+
+    }
+}
+
+.features {
+    &_inner {
+        @include desktop {
+            padding-bottom: 100px;
+        }
+    }
+
+    &_lineup {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+
+        @include desktop {
+            max-width: 1022px;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    &_contents {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+
+        @include desktop {
+            flex-direction: row;
+            gap: 8%;
+            justify-content: center;
+        }
+
+        .features_img {
+            @include desktop {
+                width: 40%;
+            }
+        }
+    }
+
+    &_contents_reverse {
+        @include desktop {
+            flex-direction: row-reverse;
+        }
+    }
+
+    &_box {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        @include desktop {
+            gap: 40px;
+        }
+
+        .features_ttl {
+            @include fz(22);
+            font-weight: bold;
+            line-height: 1.5;
+
+            @include desktop {
+                @include fz(24);
+                line-height: 1.9;
+            }
+
+            .pc {
+                display: none;
+
+                @include desktop {
+                    display: block;
+                }
+            }
+
+        }
+
+        .features_txt {
+            @include fz(16);
+            font-weight: bold;
+            line-height: 1.4;
+
+            .pc {
+                display: none;
+            }
+
+            @include desktop {
+                .pc {
+                    display: block;
+                }
+            }
+        }
+
+    }
+}
+
+// price
+
+.price {
+    padding-right: 5%;
+    padding-left: 5%;
+
+    &_area {
+        box-shadow: 0 3px 6px #00000029;
+        background: #FFFFFF;
+        max-width: 926px;
+        margin-right: auto;
+        margin-left: auto;
+
+        @include desktop {
+            display: grid;
+            grid-template-columns: 45% 1fr;
+
+        }
+
+    }
+
+    .price_item {
+        border-bottom: 1px solid #E5E5E5;
+        padding: 40px 15px;
+        @include fz(18);
+        font-weight: bold;
+        text-align: center;
+
+        @include desktop {
+            border-right: 1px solid #E5E5E5;
+            text-align: left;
+        }
+
+    }
+
+    .price_deta {
+        border-bottom: 1px solid #E5E5E5;
+        padding: 40px 0;
+        text-align: center;
+        font-weight: bold;
+        @include fz(18);
+
+        @include desktop {
+            text-align: left;
+            padding-left: 30px;
+        }
+    }
+}
+
+// }
+
+.price_txt {
+    @include fz(14);
+    text-align: center;
+    margin-top: 50px;
+    font-weight: bold;
+}
+
+// faq
+.faq {
+    padding-right: 5%;
+    padding-left: 5%;
+    padding-bottom: 86px;
+
+    &_inner {
+        max-width: 926px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    summary.faq_question {
+        border: 1px solid #E5E5E5;
+        text-align: center;
+        padding: 20px 35px;
+        font-weight: bold;
+        // display: list-item;以外を指定してデフォルトの三角形アイコンを消します
+        display: block;
+
+        @include desktop {
+            @include fz(14);
+        }
+
+    }
+
+    .content {
+        overflow: hidden;
+    }
+
+    .content_inner {
+        background: #F2F2F2;
+        border: 1px solid #E5E5E5;
+        text-align: left;
+        font-weight: bold;
+
+    }
+
+    .faq_answer {
+        padding: 10px 20px;
+        @include fz(14);
+        text-align: left;
+        letter-spacing: 0px;
+        color: #444444;
+        line-height: 1.3;
+
+        @include desktop {
+            padding: 20px 35px;
+            line-height: 1.8;
+
+
+        }
+    }
+}
+
+// blog
+
+.blog {
+    padding: 50px 5%;
+}
+
+.cardlist {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+
+    @include desktop {
+        flex-direction: row;
+        gap: 30px;
+    }
+
+    &_item {
+        box-shadow: 0 3px 6px #00000029;
+        background-color: #fff;
+
+        @include desktop {
+            width: 33.33%;
+            height: auto;
+        }
+    }
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include desktop {
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.card_body {
+    padding: 20px 10px;
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 20px;
+    line-height: 1.5;
+
+
+    @include desktop {
+        padding: 20px;
+        padding: 20px 10px;
+    }
+
+    .card_txt {
+        @include fz(16);
+        font-weight: bold;
+
+        @include desktop {
+            @include fz(18);
+            font-weight: bold;
+        }
+    }
+
+    .date {
+        font-weight: bold;
+        text-align: right;
+        @include fz(14);
+
+    }
+}
+
+.card_thumb>img {
+    width: 100%;
+}
+
+.swiper-slide {
+    width: 322px;
+    height: 407px;
+    border: 1px solid #DDDDDD;
+    border-radius: 8px;
+    overflow: hidden;
+
+    figure {
+        img {
+            height: 210px;
+            display: block;
+            object-fit: cover;
+            width: 100%;
+        }
+    }
+
+    &_text-box {
+        padding: 18px;
+
+    }
+
+    &_text-box-heading {
+        color: #333333;
+        line-height: 1.5;
+        font-weight: bold;
+        margin-bottom: 30px;
+
+    }
+
+    &_text-box-desc {
+        @include fz(14);
+        font-weight: bold;
+        color: #333333;
+        line-height: 1.5;
+
+
+        dt {
+            float: left;
+            clear: both;
+        }
+
+        dd {
+            float: left;
+        }
+
+    }
+}
+
+
+// contact
+.contact_txt {
+    text-align: center;
+    color: #FFFFFF;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+
+form {
+    padding: 44px 5% 0 5%;
+}
+
+.form {
+    box-shadow: 0 3px 6px #00000029;
+    background: #FFFFFF;
+    max-width: 908px;
+    padding: 0 5% 20px 5%;
+
+
+    @include desktop {
+        margin: auto;
+
+    }
+
+    dt {
+        padding-top: 36px;
+    }
+
+    dd {
+        padding-bottom: 36px;
+    }
+
+    &_ttl {
+        font-weight: bold;
+    }
+
+    .inputField-short {
+        width: 100%;
+        background: #EEFBFB;
+        margin-top: 36px;
+
+        @include desktop {
+            width: 70%;
+        }
+    }
+
+    .inputField-long {
+        width: 100%;
+        background: #EEFBFB;
+        margin-top: 36px;
+    }
+}
+
+.end-message {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.false-message {
+    display: none;
+    text-align: center;
+}
+
+input[type="text"],
+input[type="email"] {
+    padding: 14px 20px 12px;
+    width: 100%;
+    height: 44px;
+}
+
+textarea[id="comment"] {
+    width: 100%;
+    padding: 14px 20px 12px;
+}
+
+.acceptArea {
+    text-align: center;
+    font-weight: bold;
+}
+
+// フォーム チェックボックス
+
+// クリック範囲
+input[type="checkbox"]+span {
+    display: inline-block;
+    position: relative;
+    padding: 0.3em;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    display: inline-block;
+}
+
+// チェックボックスのスタイル
+input[type=checkbox]+span::before {
+    display: inline-block;
+    content: "";
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    border: 1px solid #707070;
+    margin-right: 10px;
+}
+
+// チェックボックス未チェック時
+input[type=checkbox]+span::after {
+    content: "";
+    display: none;
+}
+
+// チェックボックスチェック時
+input[type=checkbox]:checked+span:after {
+    display: block;
+    position: absolute;
+    top: 0.4em;
+    left: 0.7em;
+    width: 0.5em;
+    height: 1em;
+    content: "";
+    border-bottom: 3px solid #3D98B4;
+    border-right: 3px solid #3D98B4;
+    transform: rotate(45deg);
+}
+
+
+input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+
+}
+
+input[type="checkbox"]:focus+span {
+    outline: 1px solid #ccc;
+}
+
+.form_btn {
+    text-align: center;
+    margin-top: 38px;
+}
+
+.label-required {
+    color: #FFFFFF;
+    background: #0C449B;
+    border-radius: 10px;
+    padding: 4px 16px 6px;
+    margin-left: 18px;
+}
+
+
+// プライバシーポリシーモーダル部分
+.modal-open {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/*モーダル本体の指定 + モーダル外側の背景の指定*/
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: rgba(0, 0, 0, 50%);
+    padding: 40px 20px;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    box-sizing: border-box;
+    z-index: 30;
+}
+
+/*モーダル本体の擬似要素の指定*/
+.modal-container:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+/*モーダル本体にactiveクラス付与した時のスタイル*/
+.modal-container.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/*モーダル枠の指定*/
+.modal-body {
+    position: relative;
+    top: 120px;
+    display: inline-block;
+    max-width: 90%;
+
+    @include desktop {
+        max-width: 70%;
+    }
+}
+
+/*モーダルを閉じるボタンの指定*/
+.modal_btn {
+    text-align: center;
+
+}
+
+.modal-close {
+    display: inline-block;
+    max-width: 100%;
+    padding: 10px;
+    width: 150px;
+    background-color: #333333;
+    border: 2px solid transparent;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.25s;
+    cursor: pointer;
+    margin-top: 30px;
+
+    @include desktop {
+        width: 250px;
+        padding: 20px 10px;
+        margin-top: 50px;
+        @include fz(18);
+
+    }
+
+}
+
+.modal-close:focus,
+.modal-close:hover {
+    background-color: #fff;
+    border-color: currentColor;
+    color: #333;
+}
+
+/*モーダル内のコンテンツの指定*/
+.modal-content {
+    background: #fff;
+    padding: 30px;
+    position: relative;
+
+    @include desktop {
+        padding: 60px;
+    }
+
+}
+
+.privacy {
+
+    &_content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+
+    }
+
+    &_ttl {
+        @include fz(18);
+        font-weight: bold;
+        margin-top: 28px;
+        margin-bottom: 10px;
+
+        @include desktop {
+            @include fz(22);
+            font-weight: bold;
+            margin-top: 28px;
+            margin-bottom: 10px;
+        }
+    }
+
+    &_txt {
+        @include fz(14);
+        line-height: 1.3;
+
+        @include desktop {
+            @include fz(16);
+            line-height: 1.5;
+
+        }
+    }
+
+    &_list li::before {
+        position: absolute;
+        left: 0;
+        content: "♦";
+        display: block;
+
+        @include desktop {
+            position: absolute;
+            left: 0;
+            content: "♦";
+            display: block;
+        }
+    }
+
+    &_list li {
+
+        position: relative;
+        padding-left: 1em;
+        line-height: 1.3;
+
+        @include desktop {
+            position: relative;
+            padding-left: 1em;
+            line-height: 1.3;
+        }
+    }
+
+    .No10 {
+        width: 100%;
+    }
+
+    .adress {
+        dt {
+            float: left;
+            clear: both;
+        }
+
+        dd {
+            float: left;
+        }
+    }
+
+}
